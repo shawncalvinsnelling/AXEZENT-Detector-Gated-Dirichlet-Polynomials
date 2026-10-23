@@ -42,7 +42,7 @@ Let `I=[T0,T1]`, let `tau > 0`, and choose `0 < epsilon < tau`. Suppose a finite
 
 ## Recovery candidate and audit
 
-The recovered-source candidate is maintained separately from the canonical manuscript: [reconstructed AMS candidate](paper/reconstructed-ams-candidate.tex). It is a new reconstruction based on currently available material, not a claim that the lost December 2025 original has been recovered verbatim. The [A–G audit](docs/A-THROUGH-G-AUDIT.md) tracks provenance, proof status, reproducibility, adversarial testing, manuscript obligations, and repository security. A GitHub Actions workflow builds both LaTeX manuscripts on pull requests and on the research branch; its result must pass before the release is considered ready.
+The recovered-source candidate is maintained separately from the canonical manuscript: [reconstructed AMS candidate](paper/reconstructed-ams-candidate.tex). It is a new reconstruction based on currently available material, not a claim that the lost December 2025 original has been recovered verbatim. The [A–Z audit](docs/A-THROUGH-G-AUDIT.md) tracks 26 workstreams from source provenance and theorem verification through reproducibility, adversarial testing, submission readiness, commercial-claim discipline, and repository security. A GitHub Actions workflow builds both LaTeX manuscripts on pull requests and on the research branch; its result must pass before the release is considered ready.
 
 ## Research organization
 
