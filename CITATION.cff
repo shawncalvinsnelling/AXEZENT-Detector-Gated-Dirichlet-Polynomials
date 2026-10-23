@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this research repository, please cite it and identify the version consulted."
+title: "Detector-Gated Bounds for Multi-Band Dirichlet Polynomials"
+authors:
+  - family-names: Snelling
+    given-names: Shawn Calvin
+    affiliation: AXEZENT AI Research
+type: software
+date-released: 2026-10-23
+abstract: "Research notes on finite Dirichlet polynomials, detector-gated exceedance estimates, finite-grid witness arguments, proof status, and reproducible verification."
+repository-code: "https://github.com/shawncalvinsnelling/AXEZENT-Detector-Gated-Dirichlet-Polynomials"
