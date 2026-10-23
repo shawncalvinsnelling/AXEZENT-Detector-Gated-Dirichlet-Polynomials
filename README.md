@@ -8,7 +8,7 @@
 
 *Finite Dirichlet polynomials · exceedance estimates · grid witnesses · reproducible mathematics*
 
-[Project symbol](assets/axezent-symbol.svg) · [Documentation](docs/index.md) · [Proof status](docs/PROOF-STATUS.md) · [Theorem index](docs/THEOREM-INDEX.md) · [Reproducibility](docs/REPRODUCIBILITY.md)
+[Project symbol](assets/axezent-symbol.svg) · [Full manuscript source](paper/main.tex) · [Grid certificate specification](docs/CERTIFICATE-SPECIFICATION.md) · [Documentation](docs/index.md) · [Proof status](docs/PROOF-STATUS.md) · [Theorem index](docs/THEOREM-INDEX.md) · [Reproducibility](docs/REPRODUCIBILITY.md)
 
 </div>
 
@@ -61,6 +61,8 @@ The archived full manuscript and its original theorem statements must be checked
 | `docs/PROOF-STATUS.md` | Evidence labels and current mathematical boundaries |
 | `docs/THEOREM-INDEX.md` | Index of statements and dependencies |
 | `docs/REPRODUCIBILITY.md` | Standards for computational checks |
+| `docs/CERTIFICATE-SPECIFICATION.md` | Grid mesh formulas and certificate acceptance rules |
+| `paper/main.tex` | Full LaTeX manuscript source |
 | `assets/axezent-symbol.svg` | Project symbol |
 | `CITATION.cff` | Citation metadata |
 | `CONTRIBUTING.md` | Standards for corrections and new results |
