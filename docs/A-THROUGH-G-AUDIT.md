@@ -1,59 +1,90 @@
-# A–G Research Audit and Completion Record
+# A–Z AXEZENT Research Completion Audit
 
-**Status:** IN PROGRESS — original-source recovery and independent verification remain open.
+**Status: IN PROGRESS.** This is the full 26-workstream plan. Completing a checklist means documenting the evidence, not assuming a positive result. Preserve the original research artifacts unchanged and distinguish historical claims from newly verified results.
 
-## A — Source recovery and provenance
+## A — Archive and provenance
+Recover the December 2025 manuscript, dated versions, source files, figures and metadata. Hash recovered files and preserve originals. Current reconstruction is not claimed to be verbatim recovery.
 
-The current repository contains a manuscript dated 2026-10-23. A historical public post dated 2025-12-15 describes multi-band Dirichlet polynomials, rare exceedances, detector-gated claims, calibration, replication, and a stated non-RH scope. A comment attributed to Hen Tza describes a chart and a deterministic bound on total exceedance duration. The original full manuscript, legible figure equations, figure source/data, and dated original artifacts have not yet been independently recovered. Preserve any recovered original unchanged and record its provenance and checksum.
+## B — Bibliography and prior art
+Verify every citation against primary publications. Identify related analytic number theory, exponential sums, large values, entropy statistics and detector-evaluation work. Do not claim novelty until the literature review supports it.
 
-Historical notes report N=128, T=1000, Q=64, gamma=2, threshold tau=0.35, a sparse-comb-bimodal seed, rotating-bimodal plus tail-noise conditions, and FN%=3.2%. These are historical reports, not independently reproduced findings.
+## C — Definitions and conventions
+Define the finite index sets, coefficients, frequency bands, interval, measure, thresholds, event sets, detector outputs, entropy bins, all parameters and all quantifiers. Check notation for collisions and ambiguous uses.
 
-## B — Claim-by-claim mathematical audit
+## D — Derivations and proofs
+Review every line of every theorem. Check assumptions, edge cases, equality cases, convergence requirements and dependency links. Only mark PROVED where a complete argument is available.
 
-Status labels: **PROVED** means a complete argument follows from stated assumptions; **FINITE-CHECKED** means exhaustive computation on a specified finite domain; **EMPIRICAL** means a measured result under a documented protocol; **CANDIDATE** means an incomplete conjecture; **BLOCKED** means required source, definitions, or proof are missing.
+## E — Exceedance and rarity claims
+Separate the valid energy-duration inequality from any stronger rarity statement. A relative-duration bound rho requires an estimate of the form integral_I |P|^2 <= rho tau^2 |I|. Prove the actual advertised constants rather than inferring them from the general inequality.
 
-| Claim | Status | Reason / next action |
-|---|---|---|
-| Derivative and Lipschitz bounds | PROVED | Finite differentiation and triangle inequality. |
-| Finite-grid witness lemma | PROVED | Compactness, covering radius, reverse triangle inequality. |
-| Numerical grid certificate | CONDITIONAL | Requires a rigorous numerical evaluation-error bound. |
-| Exceedance-duration energy inequality | PROVED | Integrate the pointwise indicator inequality. |
-| Exact finite-interval energy identity | PROVED | Expand finite sum and integrate termwise. |
-| Multi-band union bound | PROVED | Finite subadditivity of measure. |
-| Entropy coherence range [0,1] | PROVED | Shannon entropy bounds for Q categories, Q≥2. |
-| Universal small exceedance fraction | BLOCKED | Needs an energy estimate relative to tau squared times interval length. |
-| Detector-gate inequality with factor 0.05 | BLOCKED / historical claim | Definitions and proof or reproducible experiment missing. |
-| 3.2% false-negative rate | HISTORICAL / UNVERIFIED | No independent rerun yet. |
-| gamma=2 more robust than gamma=1 | CANDIDATE | Define robustness and test with controls and uncertainty. |
-| Entropy beats circular variance on antipodal bimodality | CANDIDATE | Specify distributions, estimators, labels, baselines, loss, uncertainty. |
-| Implication for the Riemann Hypothesis | NOT ESTABLISHED | No implication chain is proved here. |
+## F — Finite-grid certification
+Check grid coverage, mesh radius, derivative bounds and threshold margins. For numerical certificates, include a rigorous bound on floating-point or interval-arithmetic error.
 
-## C — Theory and proof obligations
+## G — Gate definition and logic
+Define K(t), D(t), each event and the conditional denominator. Determine whether the factor 0.05 is a theorem under assumptions or an empirical estimate. Never blur these interpretations.
 
-Let B be a finite set of positive integers and P(t)=sum a_n exp(-it log n). Then P'(t)=-i sum a_n(log n)exp(-it log n), so |P'(t)|≤L=sum |a_n|log n. Thus |P(t)-P(u)|≤L|t-u|. If a finite grid G covers I with radius h and Lh≤epsilon, then sup_I |P|≥tau implies max_G |P|≥tau-epsilon. This is a finite-interval certificate, not an asymptotic theorem.
+## H — Harmonic and energy analysis
+Verify exact finite-interval correlation integrals and diagonal/off-diagonal terms. Assess whether the available estimates are strong enough for the intended conclusion; a correct but weak bound may not establish rarity.
 
-For E_tau={t in I: |P(t)|≥tau}, pointwise tau² 1_E≤|P|², hence meas(E_tau)≤tau^(-2) integral_I |P|². The inequality alone does not guarantee rarity: to show relative duration at most rho, one must prove integral_I |P|²≤rho tau² |I|.
+## I — Independent implementation review
+Inspect source code, algorithm definitions, input validation, precision, random number generation, determinism and dependency pinning. Compare implementation behavior against the mathematical specification.
 
-Expanding the finite product gives integral_I |P(t)|²dt = sum_{m,n} a_m conjugate(a_n) integral_I exp(-it(log m-log n))dt. The diagonal integral is |I|; for m≠n the absolute value of the oscillatory integral is at most 2/|log(m/n)|. This identity is exact, but its triangle-inequality estimate may be too crude to establish a useful uniform bound.
+## J — Jitter, mesh and numerical sensitivity
+Vary grid placement, resolution, precision and near-threshold cases. Include tests where a peak lies between grid points. Document any numerical uncertainty.
 
-For finitely many bands, meas(union E_j)≤sum meas(E_j), without an independence assumption. For a probability vector p over Q≥2 categories, H(p)=-sum p_j log p_j and kappa=1-H(p)/log Q lie in [0,1]. This bounded statistic is not, by itself, a validated detector.
+## K — Known edge cases
+Test constant and single-frequency polynomials, zero coefficients, cancellation, highly unequal coefficients, empty or degenerate bands where allowed, thresholds near zero and thresholds above the attainable maximum.
 
-## D — Reproducibility protocol
+## L — Limits and asymptotics
+Identify every limit, exchange of limit and sum/integral, uniformity claim and dependence on interval length or band size. Do not infer an asymptotic theorem from a finite calculation.
 
-Preserve the exact source commit, runtime and dependency versions, operating system, precision, parameters, seeds, data-generation procedure, calibration/test partition, ground-truth rules, baseline detectors, raw machine-readable outputs, summary-generation command, and clean-environment rerun log. Define TP, FP, FN and each denominator. For the reported 3.2% FN rate, state the number of positive cases and whether FN%=FN/(TP+FN); explain label construction and whether threshold tuning used evaluation data. Do not call this result verified until rerun independently.
+## M — Multi-band composition
+Verify the union-bound statement, overlapping events, dependence between bands, normalization and scaling. State explicitly when independence is unnecessary and where a sharper result would need additional hypotheses.
 
-## E — Adversarial and falsification suite
+## N — Null models and negative controls
+Construct cases with no intended coherence signal, randomized phases, shuffled labels and other appropriate controls. Measure false alarms as well as missed detections.
 
-Test constant and single-frequency polynomials; near-threshold peaks between grid points; cancellation and unequal coefficients; overlapping bands; thresholds near zero and the maximum amplitude; entropy at uniform, point-mass, zero-containing, and near-uniform limits; antipodal bimodal distributions; rotation and tail-noise contamination; detector blind spots; ablation of the bimodality guard; gamma=1 versus gamma=2; sensitivity to seed, sample size, threshold and calibration split; and negative controls without genuine coherence. Use explicit ground-truth labels and baseline methods. Narrow a universal claim if a counterexample defeats it.
+## O — Out-of-sample protocol
+Separate calibration, validation and final test data. Avoid threshold tuning on the evaluation set. Preserve held-out results and document any exploratory iterations.
 
-## F — Manuscript and release package
+## P — Performance metrics
+Define TP, FP, TN, FN, precision, recall, false-positive rate, false-negative rate and their denominators. Report sample counts and uncertainty intervals, not percentages alone.
 
-The candidate paper should contain abstract, scope, definitions, assumptions, complete proofs, conditional propositions, protocol, reproducible results only, limitations, references, and a proof-status table. Standard mathematical terminology should replace unexplained proprietary vocabulary while retaining explicitly defined AXEZENT components. Required artifacts include the canonical paper, reconstructed candidate, verified-core notes, reproducibility protocol, proof-status ledger, theorem index, certificate specification, experiment source/results, source figures/data, citation metadata, and version history. Do not claim AMS acceptance, endorsement, peer review, or an RH proof without documentary evidence.
+## Q — Quality of entropy coherence
+Prove the normalization range for probability vectors. Test sensitivity to binning, sample size, zero cells, smoothing, normalization and distribution shift. A bounded statistic is not automatically a good detector.
 
-## G — Release integrity and repository security
+## R — Robustness and adversarial testing
+Test antipodal bimodality, rotating modes, tail noise, outliers, overlapping bands, adversarial phase choices and the proposed bimodality guard. Compare gamma=1 and gamma=2 under predeclared metrics and controls.
 
-Keep work on research/reconstruct-2025-ams-manuscript and PR #1 until reviewed. Do not merge or publish a release automatically. Inspect changed paths, diffs, commit history, and test results. Enable and verify branch protection or a ruleset, required review and status checks, secret scanning and push protection where supported. Review collaborators, tokens, OAuth/GitHub Apps, and Actions permissions. Never commit credentials, private correspondence, or confidential design details. Record release commit SHA, artifact hashes, test commands, and unresolved items.
+## S — Seeds and statistical reproducibility
+Recover the reported seed/configuration, define the generator, publish raw outputs and rerun from a clean environment. For the historical 3.2% false-negative report, recover positive-case counts and truth-label rules before repeating the claim.
 
-## Completion gate
+## T — Tests and automation
+Add unit tests for definitions and boundary cases, regression tests for historical fixtures when recovered, deterministic experiment commands and a clean CI run. Report test counts and failures truthfully.
 
-A–G is complete only when source recovery is documented, every claim has an evidence status, experiments can be rerun, adversarial tests are reported, the candidate manuscript builds, and repository settings are verified. Until then this audit remains IN PROGRESS.
+## U — User-facing documentation
+Explain what the framework does and does not establish, how to run experiments, what files are authoritative, how to reproduce tables and figures, and how to report defects. Avoid unsupported superlatives.
+
+## V — Visuals and figure integrity
+Recover original chart source/data where possible. Regenerate figures from scripts. Include axes, units, parameters, sample sizes, uncertainty, captions and source hashes. Do not redraw an unreadable screenshot and represent it as original evidence.
+
+## W — Writing and submission readiness
+Use standard mathematical terminology, theorem/proof environments, a scope statement, limitations, verified references and a claim-status table. Build the LaTeX source. Submission readiness does not imply acceptance or endorsement by the AMS.
+
+## X — eXternal independent review
+Request independent review only with the owner's explicit approval. Prepare a concise reproducibility package and specific questions. Record reviewer comments accurately and do not describe informal feedback as peer review or endorsement.
+
+## Y — Yield, use cases and commercial claims
+Identify plausible use cases and benchmark requirements, but separate a research hypothesis from a demonstrated product capability. Do not promise predictable communications behavior or performance gains until validated in the relevant system. Keep private or sensitive design details out of public commits unless expressly approved.
+
+## Z — Zero-trust release and repository security
+Keep changes on the draft branch until reviewed. Inspect diff, branch and commit history, collaborators, tokens, GitHub Apps, Actions permissions and third-party actions. Verify branch protection/rulesets, required reviews/checks and secret scanning/push protection in GitHub settings. Documentation alone does not enable settings. Record commit SHA, artifact hashes, tests and remaining blockers. Never merge, publish a release, or contact anyone externally without explicit approval.
+
+## Historical claims currently awaiting verification
+A historical post is reported to mention N=128, T=1000, Q=64, gamma=2, tau=0.35, a sparse-comb-bimodal seed, rotating-bimodal plus tail-noise adversarial conditions, and FN%=3.2%. These are historical reports only until the original implementation, label definitions, sample counts and output artifacts are recovered and independently rerun. The reported detector-gate inequality with factor 0.05 is not established by the currently proved finite core.
+
+## Current proved core
+For a finite Dirichlet polynomial P(t)=sum_{n in B} a_n exp(-it log n), differentiation gives |P'(t)| <= sum |a_n| log n. This yields a Lipschitz bound and a finite-grid witness lemma. For E_tau={t in I: |P(t)|>=tau}, tau^2 1_{E_tau}<=|P|^2 gives meas(E_tau)<=tau^{-2} integral_I |P|^2. Expanding the finite sum gives the exact finite-interval energy identity, and finite subadditivity gives a multi-band union bound. For a probability vector p on Q>=2 categories, kappa=1-H(p)/log Q lies in [0,1]. These statements do not alone prove universal rare exceedances, the 0.05 gate claim, the 3.2% error rate, or anything about the Riemann Hypothesis.
+
+## Completion rule
+A–Z is complete only when each section has artifacts or a documented reason it remains blocked; mathematical claims have proof/evidence labels; experiment outputs are reproducible; manuscript builds pass; the original-source comparison is documented; and the repository's actual protection settings have been checked. Unresolved items must remain visible rather than being silently marked complete.
