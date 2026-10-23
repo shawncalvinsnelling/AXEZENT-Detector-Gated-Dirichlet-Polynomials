@@ -1,0 +1,159 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref,booktabs,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\title{Detector-Gated Bounds for Multi-Band Dirichlet Polynomials}
+\author{Shawn Calvin Snelling\\\small AXEZENT AI Research}
+\date{Research manuscript --- version 0.2.0\\October 23, 2026}
+\newtheorem{theorem}{Theorem}[section}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\begin{document}
+\maketitle
+\begin{abstract}
+We establish a finite-grid witness principle for finite Dirichlet polynomials and record an exact finite Fourier-energy identity for Möbius exponential sums. The first result reduces a continuous-time threshold question on a compact interval to finitely many evaluations, provided an explicit derivative bound and grid covering radius are supplied. The second rewrites a finite Fourier energy as a sinc-weighted sum of arithmetic correlations. We state exactly what these identities establish and what they do not: neither identity alone supplies a uniform asymptotic estimate, a limit-exchange theorem, or a proof of the Riemann Hypothesis.
+\end{abstract}
+
+\section{Scope and notation}
+A finite Dirichlet polynomial is
+\[
+P(t)=\sum_{n\in B}a_n n^{-it},\qquad n^{-it}:=e^{-it\log n},
+\]
+where $B$ is a finite set of positive integers and $a_n\in\mathbb C$. All interval statements concern a fixed compact interval $I=[T_0,T_1]$. A detector is simply a rule that tests values against a specified threshold; it adds no unproved mathematical guarantee.
+
+\section{Derivative and Lipschitz bounds}
+\begin{lemma}[Derivative bound]\label{lem:deriv}
+For $P(t)=\sum_{n\in B}a_n n^{-it}$, put
+\[
+L:=\sum_{n\in B}|a_n|\log n.
+\]
+Then $|P'(t)|\le L$ for every real $t$.
+\end{lemma}
+\begin{proof}
+The sum is finite, so termwise differentiation gives
+$P'(t)=-i\sum_{n\in B}a_n(\log n)n^{-it}$.
+Since $|n^{-it}|=1$, the triangle inequality yields $|P'(t)|\le L$.
+\end{proof}
+\begin{corollary}\label{cor:lip}
+For all real $t,u$, $|P(t)-P(u)|\le L|t-u|$.
+\end{corollary}
+\begin{proof}
+Integrate $P'$ along the segment between $u$ and $t$ and apply Lemma~\ref{lem:deriv}.
+\end{proof}
+
+\section{Finite-grid witness theorem}
+\begin{definition}
+A finite set $G\subset I$ has covering radius at most $h$ on $I$ if every $t\in I$ lies within distance $h$ of some $g\in G$.
+\end{definition}
+\begin{theorem}[Finite-grid witness lemma]\label{thm:grid}
+Let $P$, $I$, and $G$ be as above, with covering radius at most $h$. If $\tau>0$, $0<\varepsilon<\tau$, and $Lh\le\varepsilon$, then
+\[
+\sup_{t\in I}|P(t)|\ge\tau
+\quad\Longrightarrow\quad
+\max_{g\in G}|P(g)|\ge\tau-\varepsilon.
+\]
+Equivalently, if $|P(g)|<\tau-\varepsilon$ for every $g\in G$, then $|P(t)|<\tau$ for every $t\in I$.
+\end{theorem}
+\begin{proof}
+Continuity and compactness give a point $t_*\in I$ at which $|P|$ attains its maximum. Choose $g_*\in G$ with $|t_*-g_*|\le h$. By the reverse triangle inequality and Corollary~\ref{cor:lip},
+\[
+|P(g_*)|\ge |P(t_*)|-|P(t_*)-P(g_*)|
+\ge\tau-Lh\ge\tau-\varepsilon.
+\]
+For the contrapositive, for each $t\in I$ choose $g\in G$ with $|t-g|\le h$. Then $|P(t)|\le |P(g)|+Lh<\tau-\varepsilon+\varepsilon=\tau$.
+\end{proof}
+\begin{remark}[Spacing convention]
+If a grid includes both endpoints and its largest adjacent spacing is $\Delta$, its covering radius is at most $\Delta/2$. Thus $\Delta\le2\varepsilon/L$ suffices when $L>0$. For nonuniform or one-sided grids, verify the actual covering radius; do not silently identify it with the largest adjacent spacing. If $L=0$, $P$ is constant.
+\end{remark}
+
+\section{Numerical certificates}
+If a numerical routine returns $\widetilde P(g)$ and a rigorous error bound $|P(g)-\widetilde P(g)|\le\delta$ holds at every grid point, then
+\[
+\max_{g\in G}\bigl(|\widetilde P(g)|+\delta\bigr)+Lh<\tau
+\]
+is a sufficient certificate that $|P(t)|<\tau$ throughout $I$. Without a rigorous evaluation-error bound, a floating-point scan is numerical evidence, not a proof certificate.
+
+A reproducible certificate should record: (i) the index set and coefficient encoding; (ii) interval endpoints, threshold, tolerance, and $L$; (iii) the grid-generation rule and verified $h$; (iv) arithmetic, precision, rounding policy, and error bound; (v) sampled values or a reproducible regeneration procedure; (vi) the final checked inequality; and (vii) source revision, compiler/runtime, and hashes. C++ workers may generate candidate data, but correctness follows from verifying the stated hypotheses and inequalities, not from speed alone.
+
+\section{A separate exact Möbius Fourier-energy identity}
+For $N\ge1$, define
+\[
+F_N(u):=\frac1{\sqrt N}\sum_{n\le N}\mu(n)e^{2\pi inu/N},\qquad
+Q_N(c):=\frac1{2c}\int_{-c}^c|F_N(u)|^2\,du
+\]
+for $c>0$. For $0\le d<N$, let
+\[
+C_N(d):=\sum_{\substack{n\ge1\\n+d\le N}}\mu(n+d)\mu(n),
+\]
+and set $C_N(-d)=C_N(d)$. Let $\operatorname{sinc}(x)=\sin(x)/x$ for $x\ne0$ and $\operatorname{sinc}(0)=1$.
+\begin{proposition}[Exact sinc-correlation identity]\label{prop:sinc}
+For all $N\ge1$ and $c>0$,
+\[
+Q_N(c)=\frac1N\sum_{m,n\le N}\mu(m)\mu(n)
+\operatorname{sinc}\!\left(\frac{2\pi c(m-n)}N\right)
+=\frac1N\sum_{|d|<N}C_N(d)
+\operatorname{sinc}\!\left(\frac{2\pi cd}N\right).
+\]
+Consequently,
+\[
+Q_N(c)=\frac1N\sum_{n\le N}\mu(n)^2+
+\frac2N\sum_{1\le d<N}C_N(d)
+\operatorname{sinc}\!\left(\frac{2\pi cd}N\right).
+\]
+\end{proposition}
+\begin{proof}
+Expand the finite product:
+\[
+|F_N(u)|^2=\frac1N\sum_{m,n\le N}\mu(m)\mu(n)e^{2\pi i(m-n)u/N}.
+\]
+The sum is finite, so termwise integration is valid. Direct integration gives
+\[
+\frac1{2c}\int_{-c}^c e^{2\pi i d u/N}\,du
+=\operatorname{sinc}\!\left(\frac{2\pi cd}N\right).
+\]
+This proves the double-sum formula. Grouping terms by $d=m-n$ gives the correlation formula. The diagonal is the $d=0$ term, and the terms for $d$ and $-d$ agree, proving the final expression.
+\end{proof}
+\begin{remark}
+This is an exact finite identity. It does not imply a bound uniform in $N$, nor does it justify exchanging a limit with a sum or integral. Any asymptotic assertion such as $Q_N(c)=N^{o(1)}$ requires additional estimates not proved by this identity.
+\end{remark}
+
+\section{Connecting the tools without conflating them}
+The Dirichlet polynomial $P(t)$ uses phases $e^{-it\log n}$, whereas $F_N(u)$ uses phases $e^{2\pi inu/N}$. These are different functions. The grid theorem may be applied to $F_N$ as its own finite exponential polynomial, after deriving a derivative bound for that function.
+
+In fact,
+\[
+F_N'(u)=\frac{2\pi i}{N\sqrt N}\sum_{n\le N}n\mu(n)e^{2\pi inu/N},
+\]
+and hence
+\[
+|F_N'(u)|\le\frac{2\pi}{N\sqrt N}\sum_{n\le N}n|\mu(n)|
+\le\frac{\pi(N+1)}{\sqrt N}.
+\]
+This gives a valid, though potentially crude, finite-interval grid bound for $F_N$. It gives no cancellation estimate for the Möbius coefficients and no asymptotic control as $N\to\infty.
+
+A complete argument must keep four steps distinct: (1) exact finite algebra; (2) a finite-interval grid certificate with derivative and evaluation errors checked; (3) any required uniform asymptotic correlation or tail estimate; and (4) the separate limiting implication that uses that estimate. Steps (3) and (4) are not supplied here.
+
+\section{Proof-status ledger}
+\begin{center}
+\begin{tabular}{p{0.16\linewidth}p{0.57\linewidth}p{0.17\linewidth}}
+\toprule
+ID & Statement & Status\\
+\midrule
+DG-001 & Derivative bound for finite Dirichlet polynomials & Proved\\
+DG-002 & Lipschitz estimate & Proved\\
+DG-003 & Finite-grid witness lemma & Proved\\
+MF-001 & Finite Möbius Fourier-energy identity & Proved\\
+ASY-001 & Uniform asymptotic cancellation of sinc-weighted correlations & Open here\\
+LIM-001 & Any required limit-exchange or uniform-tail step & Not established\\
+RH-001 & Deduction of RH from the statements in this paper & Not established\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Conclusion}
+The finite-grid witness lemma rigorously converts a continuous-time threshold question on a compact interval into finite evaluations when all hypotheses and numerical errors are controlled. The Möbius Fourier-energy identity exposes an exact sinc-weighted correlation sum. Connecting these results to an asymptotic theorem requires additional uniform estimates and a separately justified limiting argument. No global asymptotic closure or proof of the Riemann Hypothesis is claimed here.
+
+\end{document}
