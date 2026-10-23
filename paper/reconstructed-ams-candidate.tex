@@ -1,0 +1,79 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref,booktabs}
+\title{Detector-Gated Bounds for Multi-Band Dirichlet Polynomials: A Reconstructed Candidate}
+\author{Shawn Calvin Snelling\\\small AXEZENT AI Research}
+\date{Candidate reconstruction --- 23 October 2026}
+\newtheorem{theorem}{Theorem}[section}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\begin{document}\maketitle
+\begin{abstract}
+This reconstructed candidate records rigorously justified finite-interval results for finite Dirichlet polynomials: a derivative bound, finite-grid witness theorem, exceedance-duration inequality, exact finite-interval energy identity, finite multi-band union bound, and entropy-coherence range result. It also states the obligations required to justify detector-gated rarity claims. It is not asserted to be the recovered December 2025 original. No universal rare-exceedance theorem, detector error rate, asymptotic estimate, or result concerning the Riemann Hypothesis is claimed without further proof and evidence.
+\end{abstract}
+\section{Scope and notation}
+Let $B$ be a finite subset of positive integers, $a_n\in\mathbb C$, and $P(t)=\sum_{n\in B}a_n n^{-it}$, where $n^{-it}=e^{-it\log n}$. All intervals $I=[T_0,T_1]$ are compact. A detector is a specified decision rule; the name alone gives no mathematical guarantee.
+\section{Derivative and grid certification}
+\begin{lemma}[Derivative bound]\label{derivative}
+For all real $t$, $|P'(t)|\le L$, where $L=\sum_{n\in B}|a_n|\log n$.
+\end{lemma}
+\begin{proof}
+Termwise differentiation of the finite sum gives $P'(t)=-i\sum_{n\in B}a_n(\log n)n^{-it}$. Since $|n^{-it}|=1$, the triangle inequality proves the claim.
+\end{proof}
+\begin{corollary}[Lipschitz bound]
+For all real $t,u$, $|P(t)-P(u)|\le L|t-u|$.
+\end{corollary}
+\begin{proof}Integrate $P'$ between $u$ and $t$ and apply Lemma~\ref{derivative}.\end{proof}
+\begin{definition}A finite set $G\subset I$ has covering radius at most $h$ if every $t\in I$ has some $g\in G$ with $|t-g|\le h$.\end{definition}
+\begin{theorem}[Finite-grid witness]
+Suppose $G$ has covering radius at most $h$, $\tau>0$, $0<\varepsilon<\tau$, and $Lh\le\varepsilon$. Then $\sup_{t\in I}|P(t)|\ge\tau$ implies $\max_{g\in G}|P(g)|\ge\tau-\varepsilon$.
+\end{theorem}
+\begin{proof}
+By continuity and compactness, $|P|$ attains its maximum at $t_*$. Choose $g_*$ with $|t_*-g_*|\le h$. The reverse triangle inequality gives $|P(g_*)|\ge |P(t_*)|-|P(t_*)-P(g_*)|\ge\tau-Lh\ge\tau-\varepsilon$.
+\end{proof}
+\begin{remark}If numerical values $\widetilde P(g)$ have a proved error bound $|P(g)-\widetilde P(g)|\le\delta$ for all grid points, then $\max_g(|\widetilde P(g)|+\delta)+Lh<\tau$ certifies $|P(t)|<\tau$ throughout $I$. Ordinary floating-point output without a rigorous error bound is not a certificate.\end{remark}
+\section{Exceedance duration and energy}
+For $\tau>0$, let $E_\tau=\{t\in I:|P(t)|\ge\tau\}$.
+\begin{theorem}[Energy-duration inequality]\label{duration}
+$\operatorname{meas}(E_\tau)\le\tau^{-2}\int_I|P(t)|^2\,dt$.
+\end{theorem}
+\begin{proof}Pointwise, $\tau^2\mathbf 1_{E_\tau}(t)\le |P(t)|^2$. Integrate and divide by $\tau^2$.\end{proof}
+\begin{remark}This deterministic inequality does not by itself show that exceedances are rare. A relative-duration bound at most $\rho$ requires the additional estimate $\int_I|P(t)|^2dt\le\rho\tau^2|I|$.\end{remark}
+\begin{proposition}[Exact finite-interval energy identity]
+$\int_{T_0}^{T_1}|P(t)|^2dt=\sum_{m,n\in B}a_m\overline{a_n}\int_{T_0}^{T_1}e^{-it(\log m-\log n)}dt$. The diagonal contributes $|I|\sum_n|a_n|^2$; for $m\ne n$, the corresponding integral has magnitude at most $2/|\log(m/n)|$.
+\end{proposition}
+\begin{proof}Expand the finite product and integrate termwise. The diagonal integrand is $1$. For $\omega=\log m-\log n\ne0$, the integral equals $(e^{-iT_1\omega}-e^{-iT_0\omega})/(-i\omega)$, whose magnitude is at most $2/|\omega|$.\end{proof}
+\begin{corollary}[Finite multi-band union bound]
+For finite Dirichlet polynomials $P_1,\ldots,P_J$ and thresholds $\tau_j>0$, $\operatorname{meas}(\bigcup_{j=1}^J E_{\tau_j}(P_j;I))\le\sum_{j=1}^J\tau_j^{-2}\int_I|P_j(t)|^2dt$.
+\end{corollary}
+\begin{proof}Use finite subadditivity of measure and apply Theorem~\ref{duration} to each band. No independence assumption is required.\end{proof}
+\section{Entropy coherence}
+\begin{definition}For a probability vector $p=(p_1,\ldots,p_Q)$, $Q\ge2$, define $H(p)=-\sum_jp_j\log p_j$ with $0\log0=0$, and $\kappa(p)=1-H(p)/\log Q$.\end{definition}
+\begin{lemma}For every such probability vector, $0\le\kappa(p)\le1$. The value is zero for the uniform distribution and one for a point mass.\end{lemma}
+\begin{proof}Shannon entropy satisfies $0\le H(p)\le\log Q$. Substitute into the definition and use the standard equality cases.\end{proof}
+\begin{remark}This normalization is a bounded statistic, not a validated detector. Any claimed advantage over circular variance for an antipodal bimodal family needs a specified family, sampling scheme, decision rule, baseline, loss, and uncertainty analysis.\end{remark}
+\section{Detector-gated inequality: proof obligations}
+An inequality such as $\operatorname{meas}\{t:K(t)\ge2, D(t)\le\tau\}\le0.05\operatorname{meas}\{t:K(t)\ge2\}$ is a theorem only after the objects are defined and a proof establishes it under stated hypotheses. If estimated by simulation, it must be labelled empirical and accompanied by sample counts, numerator and denominator, ground-truth labels, baseline, uncertainty, raw outputs, and rerun instructions.
+
+Historical notes report $N=128$, $T=1000$, $Q=64$, $\gamma=2$, threshold $\tau=0.35$, a ``sparse-comb-bimodal'' seed, rotating-bimodal plus tail-noise conditions, and FN%=3.2\%. The source code, label construction, trial counts, and original outputs have not yet been independently verified. These are historical reports, not verified results of this candidate.
+\section{Proof-status ledger}
+\begin{center}\begin{tabular}{p{0.52\linewidth}p{0.35\linewidth}}\toprule
+Derivative and Lipschitz bounds & Proved\\
+Finite-grid witness & Proved\\
+Energy-duration inequality & Proved\\
+Exact finite-interval energy identity & Proved\\
+Finite multi-band union bound & Proved\\
+Entropy-coherence range & Proved\\
+Universal rare-exceedance claim & Not established\\
+Detector-gate factor 0.05 & Not established\\
+False-negative rate 3.2\% & Unverified historical report\\
+$\gamma=2$ robustness advantage & Not established\\
+Implication for the Riemann Hypothesis & None established\\\bottomrule\end{tabular}\end{center}
+\section{Limitations and conclusion}
+The original manuscript, figure data, and experiment artifacts must be recovered and compared before this candidate can be represented as a faithful reconstruction. A deterministic duration theorem needs its exact assumptions and advertised constant; detector performance requires reproducible code and a defined evaluation population; asymptotic statements require uniform estimates and justified limiting operations. The finite statements above are valid tools but do not alone prove universal rarity of extreme events. This is not a proof of the Riemann Hypothesis.
+\end{document}
