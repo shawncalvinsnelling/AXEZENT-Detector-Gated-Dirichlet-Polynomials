@@ -40,6 +40,10 @@ Let `I=[T0,T1]`, let `tau > 0`, and choose `0 < epsilon < tau`. Suppose a finite
 
 **Proof.** Since `P` is continuous and `I` is compact, choose a point `t*` attaining the maximum. Select `g` in the grid with `|t*-g| <= h`. The reverse triangle inequality gives `|P(g)| >= |P(t*)| - |P(t*)-P(g)| >= tau - Lh >= tau-epsilon`. Thus the claim follows.
 
+## Recovery candidate and audit
+
+The recovered-source candidate is maintained separately from the canonical manuscript: [reconstructed AMS candidate](paper/reconstructed-ams-candidate.tex). It is a new reconstruction based on currently available material, not a claim that the lost December 2025 original has been recovered verbatim. The [A–G audit](docs/A-THROUGH-G-AUDIT.md) tracks provenance, proof status, reproducibility, adversarial testing, manuscript obligations, and repository security. A GitHub Actions workflow builds both LaTeX manuscripts on pull requests and on the research branch; its result must pass before the release is considered ready.
+
 ## Research organization
 
 - **Mathematical statements:** definitions, hypotheses, and exact theorem formulations.
