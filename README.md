@@ -2,13 +2,13 @@
 
 <div align="center">
 
-**∿ ┃ ⊙ ┃ ∿**
+<img src="assets/axezent-symbol.svg" alt="AXEZENT mathematical gate symbol" width="120" />
 
 **Shawn Calvin Snelling · AXEZENT AI Research**
 
 *Finite Dirichlet polynomials · exceedance estimates · grid witnesses · reproducible mathematics*
 
-[Project symbol](assets/axezent-symbol.md) · [Proof status](docs/PROOF-STATUS.md) · [Theorem index](docs/THEOREM-INDEX.md) · [Reproducibility](docs/REPRODUCIBILITY.md)
+[Project symbol](assets/axezent-symbol.svg) · [Documentation](docs/index.md) · [Proof status](docs/PROOF-STATUS.md) · [Theorem index](docs/THEOREM-INDEX.md) · [Reproducibility](docs/REPRODUCIBILITY.md)
 
 </div>
 
@@ -57,11 +57,13 @@ The archived full manuscript and its original theorem statements must be checked
 
 | Path | Purpose |
 |---|---|
+| `docs/index.md` | Research documentation landing page |
 | `docs/PROOF-STATUS.md` | Evidence labels and current mathematical boundaries |
 | `docs/THEOREM-INDEX.md` | Index of statements and dependencies |
 | `docs/REPRODUCIBILITY.md` | Standards for computational checks |
-| `assets/axezent-symbol.md` | Project symbol |
+| `assets/axezent-symbol.svg` | Project symbol |
 | `CITATION.cff` | Citation metadata |
+| `CONTRIBUTING.md` | Standards for corrections and new results |
 
 ## Corrections
 
