@@ -1,0 +1,41 @@
+name: Manuscript build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - research/reconstruct-2025-ams-manuscript
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install LaTeX toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-recommended texlive-latex-extra
+      - name: Build canonical manuscript
+        working-directory: paper
+        run: |
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex
+      - name: Build reconstructed candidate
+        working-directory: paper
+        run: |
+          pdflatex -interaction=nonstopmode -halt-on-error reconstructed-ams-candidate.tex
+          pdflatex -interaction=nonstopmode -halt-on-error reconstructed-ams-candidate.tex
+      - name: Upload manuscript PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: manuscript-pdfs
+          path: |
+            paper/main.pdf
+            paper/reconstructed-ams-candidate.pdf
+          if-no-files-found: error
